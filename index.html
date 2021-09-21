@@ -60,8 +60,9 @@
     const type = event.type;
     const message = JSON.stringify(event.data.message);
     const element = event.data.element;
+    const responseType = event.data.message?.user_defined?.command
     console.log(`CustomResponse SCOTT`,event);
-    if (event.data.message?.user_defined?.command === "update_profile") {
+    if (responseType  === "update_profile") {
       var myHeaders = new Headers();
       myHeaders.append("Authorization", "Bearer 7c0208332d8183c78b3c3a31163659b0e5c8abcd ");
       var requestOptions = {
@@ -74,7 +75,9 @@
    return fetch("https://www.strava.com/api/v3/segments/explore?bounds=39.969753%2C-105.298927,40.024985%2C-105.239638&activity_type=running&min_cat=1&max_cat=5", requestOptions)
      .then(response => response.text())
      .then(result => { 
-        element.innerHTML = result.segment.reduce((final, current) => {
+        console.log("Segments...", result.segments.length);
+     
+        element.innerHTML = result.segments.reduce((final, current) => {
           return final + `<div class="ibm-web-chat--card">${current.name}</div>`
         }, '');
      })
@@ -86,7 +89,7 @@
   function preReceive(event) {
     const URL="https://www.strava.com/api/v3/segments/explore?2Cbounds=39.969753%2C-105.298927,40.024985%-105.239638&activity_type=running&min_cat=1&max_cat=5";
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer 7c0208332d8183c78b3c3a31163659b0e5c8abcd ");
+    myHeaders.append("Authorization", "Bearer d34c4f44ab3a93967f2e69c1a4cea083d5b7f02c ");
     var requestOptions = {
       method: 'GET',
       headers: myHeaders,
