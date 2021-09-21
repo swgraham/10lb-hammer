@@ -78,7 +78,7 @@
     onLoad: function(instance) { 
       params = getJsonFromUrl();
       if (params.phone_number) {
-        instance.updateUserId(params.phone_number);
+        instance.updateUserID(params.phone_number);
       }
       instance.on({ type: "pre:send", handler: preSendhandler });
       instance.render(); 
