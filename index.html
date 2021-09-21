@@ -79,8 +79,9 @@
         console.log("Segments...", result);
         element.innerHTML = result.segments.filter((segment, index) => index < 5).reduce((final, current) => {
           return final + `<div class="ibm-web-chat--card">
-              <h2>${current.name}</h2>
-              <p> distance ${current.distance}</p></div>
+              <h4>${current.name}</h4>
+              <p> Distance: ${current.distance} meters</p>
+              <p> Average Grade: ${current.avg_grade}%</div>
 `
         },'');
      })
