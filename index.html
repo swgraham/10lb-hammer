@@ -61,7 +61,7 @@
     const message = JSON.stringify(event.data.message);
     const element = event.data.element;
     console.log(`CustomResponse`,event);
-    if (event.data.user_defined.command === "update_profile") {
+    if (event.data.message.user_defined.command === "update_profile") {
       var myHeaders = new Headers();
       myHeaders.append("Authorization", "Bearer 7c0208332d8183c78b3c3a31163659b0e5c8abcd ");
       var requestOptions = {
