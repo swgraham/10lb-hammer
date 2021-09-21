@@ -90,7 +90,7 @@
      .catch(error => console.log('error', error));
       element.innerHTML = `<div>${error}</div>`
     }
-     if (/eating/i.test(activity)) {
+   /* if (/eating/i.test(activity)) {
        const token = 'AIzaSyA9ENiujZzoQC8jXmTpESYjrGyIPD8lFbc'
        const URL=`https://www.google.com/maps/embed/v1/search?key=${token}&center=${location}&q=restaurants`
        element.innerHTML = `<iframe
@@ -100,6 +100,7 @@
             src=${URL}>
             </iframe>`
      }
+     */
   }
   
   function preReceive(event) {
