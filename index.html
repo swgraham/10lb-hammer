@@ -58,6 +58,8 @@
   }
   function customResponseHandler(event) {
     const type = event.type;
+    const location = `37.7925,-122.4008`
+    const locationSquare = `37.751691,-122.466768,37.810709,-122.409761`
     const message = JSON.stringify(event.data.message);
     const element = event.data.element;
     const responseType = event.data.message?.user_defined?.command
@@ -73,7 +75,7 @@
       };
       console.log('RECEIVED DATA', event.data);
 
-   return fetch("https://www.strava.com/api/v3/segments/explore?bounds=39.969753%2C-105.298927,40.024985%2C-105.239638&activity_type=running&min_cat=1&max_cat=5", requestOptions)
+   return fetch(`https://www.strava.com/api/v3/segments/explore?bounds=${locationSquare}&activity_type=running`, requestOptions)
      .then(response => response.json())
      .then(result => { 
         console.log("Segments...", result);
@@ -90,13 +92,13 @@
     }
      if (/eating/i.test(responseType)) {
        const token = 'AIzaSyA9ENiujZzoQC8jXmTpESYjrGyIPD8lFbc'
-       const URL=`https://www.google.com/maps/embed/v1/search?key=${token}&center=${location}&q=restaurants"
-        element.innerHTML = `<iframe
-  width="450"
-  height="250"
-  frameborder="0" style="border:0"
-  src=${URL}>
-  </iframe>`
+       const URL=`https://www.google.com/maps/embed/v1/search?key=${token}&center=${location}&q=restaurants`
+       element.innerHTML = `<iframe
+             width="450"
+             height="250"
+            frameborder="0" style="border:0"
+            src=${URL}>
+            </iframe>`
      }
   }
   
