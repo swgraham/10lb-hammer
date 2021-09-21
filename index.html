@@ -61,8 +61,9 @@
     const message = JSON.stringify(event.data.message);
     const element = event.data.element;
     const responseType = event.data.message?.user_defined?.command
+    const activity=event.data.message?.user_defined?.activity
     console.log(`CustomResponse SCOTT`,event);
-    if (responseType  === "update_profile") {
+    if (responseType  === "update_profile" && activity !== '$activity') {
       var myHeaders = new Headers();
       myHeaders.append("Authorization", "Bearer d34c4f44ab3a93967f2e69c1a4cea083d5b7f02c");
       var requestOptions = {
@@ -77,8 +78,11 @@
      .then(result => { 
         console.log("Segments...", result);
         element.innerHTML = result.segments.filter((segment, index) => index < 5).reduce((final, current) => {
-          return final + `<div class="ibm-web-chat--card">${current.name}</div>`
-        },`<p>${event.data.message?.user_defined?.activity}</p>` );
+          return final + `<div class="ibm-web-chat--card">
+              <h2>${current.name}</h2>
+              <p> distance ${current.distance}</p></div>
+`
+        },'');
      })
      .catch(error => console.log('error', error));
       element.innerHTML = `<div>${error}</div>`
