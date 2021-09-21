@@ -76,9 +76,9 @@
      .then(response => response.json())
      .then(result => { 
         console.log("Segments...", result);
-        element.innerHTML = result.segments.reduce((final, current) => {
+        element.innerHTML = result.segments.filter((segment, index) => index < 5).reduce((final, current) => {
           return final + `<div class="ibm-web-chat--card">${current.name}</div>`
-        }, '');
+        },`<p>${event.data.message?.user_defined?.activity}</p>` );
      })
      .catch(error => console.log('error', error));
       element.innerHTML = `<div>${error}</div>`
