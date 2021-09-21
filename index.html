@@ -12,13 +12,57 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 <script>
+  /**
+   * Following the v2 message API Response
+   * at https://cloud.ibm.com/apidocs/assistant/assistant-v2#send-user-input-to-assistant,
+   * we add some items to context.
+   */
+  function getJsonFromUrl(url) {
+  if(!url) url = location.search;
+  var query = url.substr(1);
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+    console.log(result);
+  return result;
+}
+
+
+  function preSendhandler(event) {
+
+    // When fetching the Welcome Node on startup, the context won't be defined, yet. If you want to add to
+    // context when fetching welcome node, you will need to define the context.
+
+    // NOTE: If you are using an actions skill, replace 'main skill' with 'actions skill'.
+
+    event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || { user_defined: {} };
+    event.data.context.skills['actions skill'].user_defined.phone_number = true;
+
+    // You can OPTIONALLY return a promise and we will wait to continue processing until the promise is resolved. If
+    // you return nothing we will immediately continue processing the event. If you fail the Promise we will cancel
+    // sending the message.
+  
+    /*
+    return new Promise(function(resolve) {
+      myAsyncThing.then(function(moreData) {
+        // Do some other manipulation of event.data...
+        resolve();
+      });
+    }); 
+    */
+    
+  }
+  
+  
   window.watsonAssistantChatOptions = {
     integrationID: "0a9cffcb-6427-4cc2-ac6f-b9ebd9973391", // The ID of this integration.
     region: "us-south", // The region your integration is hosted in.
     serviceInstanceID: "852ba3ea-4f22-4377-83f2-3c41b3c7424f", // The ID of your service instance.
     pageLinkConfig: {
       linkIDs: {
-        'u35': {
+        'transfer': {
           text: 'I would like to update my account'
         },
         'r23': {
@@ -26,7 +70,10 @@
         },
       }
     },
-    onLoad: function(instance) { instance.render(); },
+    onLoad: function(instance) { 
+      getJsonFromUrl();
+      instance.render(); 
+    },
     openChatByDefault: true
   };
   setTimeout(function(){
@@ -68,7 +115,5 @@
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
   </body>
 </html>
