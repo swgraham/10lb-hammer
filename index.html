@@ -38,7 +38,7 @@
     const { phone_number } = params;
     // When fetching the Welcome Node on startup, the context won't be defined, yet. If you want to add to
     // context when fetching welcome node, you will need to define the context.
-    console.log('PresendHandler!', phone_numbers);
+    console.log('PresendHandler!', phone_number);
     // NOTE: If you are using an actions skill, replace 'main skill' with 'actions skill'.
 
     event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || { user_defined: {} };
