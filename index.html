@@ -12,6 +12,9 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 <script>
+
+  let params = {};
+
   /**
    * Following the v2 message API Response
    * at https://cloud.ibm.com/apidocs/assistant/assistant-v2#send-user-input-to-assistant,
@@ -32,13 +35,14 @@
 
   function preSendhandler(event) {
 
+    const { phone_number } = params;
     // When fetching the Welcome Node on startup, the context won't be defined, yet. If you want to add to
     // context when fetching welcome node, you will need to define the context.
-
+    console.log('PresendHandler!', phone_numbers);
     // NOTE: If you are using an actions skill, replace 'main skill' with 'actions skill'.
 
     event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || { user_defined: {} };
-    event.data.context.skills['actions skill'].user_defined.phone_number = true;
+    event.data.context.skills['actions skill'].user_defined.user_phone_number = phone_number;
 
     // You can OPTIONALLY return a promise and we will wait to continue processing until the promise is resolved. If
     // you return nothing we will immediately continue processing the event. If you fail the Promise we will cancel
@@ -65,13 +69,14 @@
         'transfer': {
           text: 'I would like to update my account'
         },
-        'r23': {
-          text: 'I need to reset my password'
+        'flight_status': {
+          text: 'flight status'
         },
       }
     },
     onLoad: function(instance) { 
-      getJsonFromUrl();
+      params = getJsonFromUrl();
+      instance.on({ type: "pre:send", handler: preSendhandler });
       instance.render(); 
     },
     openChatByDefault: true
