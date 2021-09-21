@@ -44,6 +44,7 @@
     event.data.context.skills['actions skill'] = event.data.context.skills['actions skill'] || { user_defined: {} };
     event.data.context.skills['actions skill'].user_defined.user_phone_number = phone_number;
 
+    console.log('preSend', event);
     // You can OPTIONALLY return a promise and we will wait to continue processing until the promise is resolved. If
     // you return nothing we will immediately continue processing the event. If you fail the Promise we will cancel
     // sending the message.
