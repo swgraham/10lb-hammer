@@ -63,7 +63,7 @@
     const responseType = event.data.message?.user_defined?.command
     const activity=event.data.message?.user_defined?.activity
     console.log(`CustomResponse SCOTT`,event);
-    if (responseType  === "update_profile" && activity !== '$activity') {
+    if (/running/i.test(responseType)) {
       var myHeaders = new Headers();
       myHeaders.append("Authorization", "Bearer d34c4f44ab3a93967f2e69c1a4cea083d5b7f02c");
       var requestOptions = {
@@ -88,6 +88,16 @@
      .catch(error => console.log('error', error));
       element.innerHTML = `<div>${error}</div>`
     }
+     if (/eating/i.test(responseType)) {
+       const token = 'AIzaSyA9ENiujZzoQC8jXmTpESYjrGyIPD8lFbc'
+       const URL=`https://www.google.com/maps/embed/v1/search?key=${token}&center=${location}&q=restaurants"
+        element.innerHTML = `<iframe
+  width="450"
+  height="250"
+  frameborder="0" style="border:0"
+  src=${URL}>
+  </iframe>`
+     }
   }
   
   function preReceive(event) {
