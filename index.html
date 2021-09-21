@@ -56,6 +56,32 @@
     */
     
   }
+  function customResponseHandler(event) {
+    const type = event.type;
+    const message = JSON.stringify(event.data.message);
+    const element = event.data.element;
+    if (type === "update_profile") {
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Bearer 7c0208332d8183c78b3c3a31163659b0e5c8abcd ");
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+      console.log('RECEIVED DATA', event.data);
+
+   return fetch("https://www.strava.com/api/v3/segments/explore?bounds=39.969753%2C-105.298927,40.024985%2C-105.239638&activity_type=running&min_cat=1&max_cat=5", requestOptions)
+     .then(response => response.text())
+     .then(result => { 
+        element.innerHTML = result.segment.reduce((final, current) => {
+          return final + `<div class="ibm-web-chat--card">${current.name}</div>`
+        }, '');
+     })
+     .catch(error => console.log('error', error));
+      element.innerHTML = `<div>${error}</div>`
+    }
+  }
+  
   function preReceive(event) {
     const URL="https://www.strava.com/api/v3/segments/explore?2Cbounds=39.969753%2C-105.298927,40.024985%-105.239638&activity_type=running&min_cat=1&max_cat=5";
     var myHeaders = new Headers();
@@ -97,6 +123,7 @@
       }
       instance.on({ type: "pre:send", handler: preSendhandler });
       instance.on({ type: "pre:receive", handler: preReceive });
+      instance.on({ type: "customResponse", handler: customResponseHandler });
       instance.render(); 
     },
     openChatByDefault: true,
