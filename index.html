@@ -73,10 +73,9 @@
       console.log('RECEIVED DATA', event.data);
 
    return fetch("https://www.strava.com/api/v3/segments/explore?bounds=39.969753%2C-105.298927,40.024985%2C-105.239638&activity_type=running&min_cat=1&max_cat=5", requestOptions)
-     .then(response => response.text())
+     .then(response => response.json())
      .then(result => { 
-        console.log("Segments...", result.segments.length);
-     
+        console.log("Segments...", result);
         element.innerHTML = result.segments.reduce((final, current) => {
           return final + `<div class="ibm-web-chat--card">${current.name}</div>`
         }, '');
