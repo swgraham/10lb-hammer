@@ -59,7 +59,7 @@
   function customResponseHandler(event) {
     const type = event.type;
     const location = `37.7925,-122.4008`
-    const locationSquare = `37.751691,-122.466768,37.810709,-122.409761`
+    const locationSquare = `37.751691%2C-122.466768,37.810709%2C-122.409761`
     const message = JSON.stringify(event.data.message);
     const element = event.data.element;
     const responseType = event.data.message?.user_defined?.command
