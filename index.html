@@ -64,7 +64,7 @@
     const element = event.data.element;
     const responseType = event.data.message?.user_defined?.command
     const activity=event.data.message?.user_defined?.activity
-    console.log(`CustomResponse SCOTT ${activity}`,event);
+    console.log(`CustomResponse SCOTT activity: ${activity}`, event);
     if (/running/i.test(activity)) {
       var myHeaders = new Headers();
       myHeaders.append("Authorization", "Bearer d34c4f44ab3a93967f2e69c1a4cea083d5b7f02c");
