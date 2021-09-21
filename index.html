@@ -87,23 +87,7 @@
   }
   
   function preReceive(event) {
-    const URL="https://www.strava.com/api/v3/segments/explore?2Cbounds=39.969753%2C-105.298927,40.024985%-105.239638&activity_type=running&min_cat=1&max_cat=5";
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer d34c4f44ab3a93967f2e69c1a4cea083d5b7f02c ");
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-    console.log('RECEIVED DATA', event.data);
-
-   return fetch("https://www.strava.com/api/v3/segments/explore?bounds=39.969753%2C-105.298927,40.024985%2C-105.239638&activity_type=running&min_cat=1&max_cat=5", requestOptions)
-     .then(response => response.text())
-     .then(result => { 
-       // event.data.result.segments.map(
-        console.log(result)
-     })
-     .catch(error => console.log('error', error));
+        console.log('pre:receive', event);
    }
   
   window.watsonAssistantChatOptions = {
